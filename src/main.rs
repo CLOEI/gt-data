@@ -2,6 +2,7 @@ use rttex::get_image_buffer;
 use std::path::Path;
 use walkdir::WalkDir;
 use std::panic;
+use std::fs;
 
 fn main() {
     let game_dir = Path::new("game");
@@ -32,7 +33,11 @@ fn main() {
                     let png_path = entry.path().with_extension("png");
                     match img.save(&png_path) {
                         Ok(()) => {
-                             println!("Converted {} to {}", entry.path().display(), png_path.display())
+                            println!("Converted {} to {}", entry.path().display(), png_path.display());
+                            match fs::remove_file(entry.path()) {
+                                Ok(()) => {},
+                                Err(e) => println!("Failed to remove original file {}: {}", entry.path().display(), e),
+                            }
                         },
                         Err(e) => println!("Failed to save PNG for {}: {}", entry.path().display(), e),
                     }
