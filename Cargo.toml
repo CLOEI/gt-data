@@ -1,0 +1,10 @@
+[package]
+name = "gt-data"
+version = "0.1.0"
+edition = "2024"
+authors = ["Cendy"]
+
+[dependencies]
+rttex = { git = "https://github.com/CLOEI/rttex" }
+image = "0.24"
+walkdir = "2"
